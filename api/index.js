@@ -11,7 +11,7 @@ const PORT = 8080;
 connectDb();
 
 // Middleware
-app.use(cors()); // Enable CORS for all origins
+app.use(cors({ origin: '*' })); // Explicitly enable all origins, including localhost
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -41,7 +41,7 @@ app.post('/', async (req, res) => {
 
         res.redirect("https://onlinemanipalmba.in/");
     } catch (err) {
-        res.redirect("https://onlinemanipalmba.in/");
+        res.redirect(req.url);
     }
 });
 
