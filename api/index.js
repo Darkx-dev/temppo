@@ -1,7 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const UserModel = require('./models/UserModel');
-const connectDb = require('./utils/db');
+const UserModel = require('../models/UserModel');
+const connectDb = require('../utils/db');
 
 const app = express();
 const PORT = 8080;
