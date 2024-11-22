@@ -13,30 +13,33 @@ connectDb();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.get('/', (req, res) => {
+    res.redirect("https://onlinemanipalmba.in/")
+})
+
 // POST endpoint to create a user
 app.post('/', async (req, res) => {
     const { name, email, phone, course } = req.body;
 
     // Check for missing fields
     if (!name || !email || !phone || !course) {
-        return res.status(400).send("Please provide all the fields to create a user.");
+        res.redirect("https://onlinemanipalmba.in/")
     }
 
     try {
         // Check if user already exists by phone
         const existingUser = await UserModel.findOne({ phone });
         if (existingUser) {
-            return res.status(409).send("User already exists in the database.");
+            return res.redirect("https://onlinemanipalmba.in/")
         }
 
         // Create and save new user
         const newUser = new UserModel({ name, email, phone, course });
         await newUser.save();
 
-        res.status(201).send(newUser);
+        res.redirect("https://onlinemanipalmba.in/")
     } catch (err) {
-        console.error("Error creating user:", err.message);
-        res.status(500).send("An error occurred while creating the user.");
+        res.redirect(req.url)
     }
 });
 
