@@ -30,13 +30,13 @@ app.post('/', async (req, res) => {
 
     try {
         // Check if user already exists by phone
-        const existingUser = await UserModel.findOne({ phone }).maxTimeMS(25000);
+        const existingUser = await UserModel.findOne({ phone });
         if (existingUser) {
             return res.redirect("https://onlinemanipalmba.in/");
         }
 
         // Create and save new user
-        const newUser = new UserModel({ name, email, phone, course }).maxTimeMS(25000);
+        const newUser = new UserModel({ name, email, phone, course });
         await newUser.save();
 
         res.redirect("https://onlinemanipalmba.in/");
