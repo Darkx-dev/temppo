@@ -11,7 +11,8 @@ const PORT = 8080;
 connectDb();
 
 // Middleware
-app.use(cors({ origin: ['*','http://localhost:3000', 'http://127.0.0.1:3000','http://localhost:5500', 'http://127.0.0.1:5500'] })); // Explicitly enable all origins, including localhost
+app.use(cors());
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -22,26 +23,27 @@ app.get('/', (req, res) => {
 // POST endpoint to create a user
 app.post('/', async (req, res) => {
     const { name, email, phone, course } = req.body;
-
     // Check for missing fields
     if (!name || !email || !phone || !course) {
-        return res.redirect("https://onlinemanipalmba.in/");
+        console.log('field missing')
+        return res.send("Missing field")
     }
 
     try {
         // Check if user already exists by phone
         const existingUser = await UserModel.findOne({ phone });
         if (existingUser) {
-            return res.redirect("https://onlinemanipalmba.in/");
+            return res.send("Existing user")
         }
 
         // Create and save new user
         const newUser = new UserModel({ name, email, phone, course });
         await newUser.save();
 
-        res.redirect("https://onlinemanipalmba.in/");
+        res.send(newUser)
     } catch (err) {
-        res.redirect(req.url);
+        console.error(err)
+        res.redirect("https://onlinemanipalmba.in/");
     }
 });
 
