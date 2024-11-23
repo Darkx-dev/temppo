@@ -13,7 +13,9 @@ connectDb();
 // Middleware
 app.use(cors(
 {
-    origin: ['https://onlinemanipalmba.in','onlinemanipalmba.in']
+    origin: ['https://onlinemanipalmba.in','onlinemanipalmba.in'],
+    methods: ['GET', 'POST'], // Allowed HTTP methods
+    credentials: true, // If cookies or credentials are involved
 }
 ));
 
