@@ -5,7 +5,7 @@ const UserModel = require('../models/UserModel');
 const connectDb = require('../utils/db');
 
 const app = express();
-const PORT = 8080;
+const PORT = 5000;
 
 // Establish DB connection once
 connectDb();
@@ -43,8 +43,7 @@ app.post('/', async (req, res) => {
         }
 
         // Create and save new user
-        const newUser = new UserModel({ name, email, phone, course });
-        await newUser.save();
+        const newUser = await UserModel.create({ name, email, phone, course });
 
         res.send(newUser)
     } catch (err) {
