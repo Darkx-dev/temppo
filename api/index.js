@@ -11,7 +11,11 @@ const PORT = 8080;
 connectDb();
 
 // Middleware
-app.use(cors());
+app.use(cors(
+{
+    origin: ['https://onlinemanipalmba.in','onlinemanipalmba.in']
+}
+));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
