@@ -53,7 +53,11 @@ app.post('/', async (req, res) => {
     }
 });
 
+
+
 // Start the server
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
+
+server.timeout = 120000
